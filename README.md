@@ -67,8 +67,8 @@ docker-compose down -v
 ## 📂 Структура проєкту
 ```
 gitcrm/
- ├─ backend/         # Серверна частина (NestJS / Express)
- ├─ frontend/        # Клієнтська частина (React)
+ ├─ backend/         # Серверна частина (Express)
+ ├─ frontend/        # Клієнтська частина (React (TS))
  ├─ docker-compose.yml
  ├─ .env.example
  ├─ README.md
