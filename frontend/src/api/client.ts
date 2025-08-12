@@ -21,12 +21,15 @@ async function request(path: string, options: RequestInit = {}) {
 
 export const api = {
   projects: {
-    list: () => request("/projects"),
+    list: () => request('/projects'),
     add: (repoPath: string) =>
-      request("/projects", { method: "POST", body: JSON.stringify({ repoPath }) }),
-    refresh: (id: number) => request(`/projects/${id}/refresh`, { method: "PUT" }),
-    remove: (id: number) => request(`/projects/${id}`, { method: "DELETE" }),
+      request('/projects', { method: 'POST', body: JSON.stringify({ repoPath }) }),
+    refresh: (id: string) =>
+      request(`/projects/${id}/refresh`, { method: 'PATCH' }),
+    remove: (id: string) =>
+      request(`/projects/${id}`, { method: 'DELETE' }),
   },
 };
+
 
 export { API_URL, request };

@@ -84,7 +84,7 @@ export default function ProjectsPage() {
                     onDelete={async (id) => { await api.projects.remove(id); await load(); }}
                 />
             ) : (
-                <div className="card">
+                <div className="card-project">
                     <EmptyState />
                 </div>
             )}

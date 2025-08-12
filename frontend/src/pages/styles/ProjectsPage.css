@@ -29,7 +29,7 @@
 .btn-add:hover{ background:var(--accent-700); }
 .btn-reload{ background:#111827; color:#e5e7eb; border:1px solid #232f3e; }
 
-.card{
+.card-project{
   background: color-mix(in oklab, var(--card) 95%, black);
   border:1px solid var(--border); border-radius: var(--radius);
   overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -61,3 +61,58 @@
 .empty-dot{ width:10px; height:10px; border-radius:999px; background:#334155; opacity:.7; }
 .empty-title{ font-weight:700; color:#cbd5e1; }
 .empty-sub{ font-size:13px; color:#94a3b8; }
+
+/* Контейнер списку */
+.list-card { padding: 8px; }
+.repo-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+
+/* Рядок-картка */
+.repo-row{
+  display: grid;
+  grid-template-columns: 1fr auto; /* зправа компактна панель */
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #0f1624;
+  border: 1px solid #1f2a37;
+  transition: background .15s ease, border-color .15s ease, transform .08s ease;
+}
+.repo-row:hover{ background:#121b2b; border-color:#293548; }
+
+/* Ліва частина */
+.repo-main{ min-width: 0; }
+.repo-title{ display:inline-flex; align-items:center; gap:6px; text-decoration:none; }
+.repo-name{ color:#cbd5e1; font-weight:600; }
+.repo-strong{ color:#e5e7eb; font-weight:800; }
+.slash{ color:#64748b; }
+.repo-url{
+  color:#93a4b8; font-size:12px; margin-top:4px;
+  max-width: 520px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.repo-created{ color:#8aa0b4; font-size:12px; margin-top:2px; }
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+
+/* Права частина */
+.repo-side{ display:flex; align-items:center; gap:12px; }
+.stats{ display:flex; gap:8px; }
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border-radius:999px;
+  border:1px solid #243044; background:#0b1220; color:#cbd5e1;
+  font-weight:600; font-size:12px;
+}
+.chip.warn{ background:#2a1416; border-color:#7f1d1d; color:#fecaca; }
+
+.row-actions{ display:flex; gap:8px; }
+.act{ padding:8px 12px; border-radius:10px; font-weight:700; border:1px solid transparent; cursor:pointer; }
+.act-refresh{ background:#083d2b; color:#a7f3d0; border-color:#14532d; }
+.act-refresh:hover{ background:#0a4a34; }
+.act-del{ background:#3b0d0d; color:#fecaca; border-color:#7f1d1d; }
+.act-del:hover{ background:#4a1010; }
+
+/* Адаптивність */
+@media (max-width: 760px){
+  .repo-row{ grid-template-columns: 1fr; align-items: start; }
+  .repo-side{ justify-content: space-between; }
+}

@@ -1,14 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export default function auth(req: Request & { user?: any }, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
+export interface AuthedRequest extends Request {
+  user?: { id: string; email: string }; // payload з JWT
+}
 
+export default function auth(req: AuthedRequest, res: Response, next: NextFunction) {
+  const hdr = req.headers.authorization;
+  if (!hdr?.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  const token = hdr.slice(7);
   try {
-    req.user = jwt.verify(token, process.env.JWT_SECRET || 'change_me');
+    const payload = jwt.verify(token, process.env.JWT_SECRET || 'change_me') as any;
+    req.user = { id: String(payload.id), email: String(payload.email) };
     next();
   } catch {
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 }

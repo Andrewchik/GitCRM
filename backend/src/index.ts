@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import authRoutes from './routes/auth';    
 import 'dotenv/config'; 
+import projectsRoutes from './routes/projects';
+import auth from './middleware/auth'; 
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 app.use('/auth', authRoutes); 
+app.use('/projects', auth, projectsRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/gitcrm')
