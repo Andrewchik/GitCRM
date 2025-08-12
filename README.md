@@ -50,7 +50,7 @@ docker-compose up --build
 ### 5. Доступ до сервісів
 Після запуску:
 - **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000/api
+- **Backend API:** http://localhost:4000/api
 - **Mongo Express:** http://localhost:8081
 
 ### 6. Зупинка контейнерів
