@@ -1,0 +1,58 @@
+:root{
+  --card:#121821; --border:#1f2a37; --muted:#9aa4b2; --text:#e6edf3;
+  --ink:#0b0f14; --accent:#4f71ff; --accent-700:#3f5ceb;
+  --good:#10b981; --good-2:#0ea5e9; --bad:#ef4444;
+  --radius:14px;
+}
+
+.wrap{
+  max-width: 1100px; margin: 28px auto; padding: 0 20px; color: var(--text);
+}
+.header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.h2{ font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0; }
+
+.toolbar{ display:flex; gap:10px; }
+.btn{ padding:10px 14px; border-radius:12px; border:1px solid transparent; font-weight:600; cursor:pointer; }
+.btn:hover{ filter:brightness(1.07); }
+.btn-ghost{ background:#0f1621; color:#e5e7eb; border-color:#232f3e; }
+.btn-logout{ background:#0f1621; color:#e5e7eb; border:1px solid #2b3545; }
+
+.row{ display:flex; gap:10px; margin-bottom:14px; }
+.input{
+  flex:1; min-width:280px; padding:10px 12px; border-radius:12px;
+  background:#0e141b; color:var(--text); border:1px solid var(--border);
+  outline:none;
+}
+.input:focus{ border-color:#334155; }
+
+.btn-add{ background:var(--accent); color:white; }
+.btn-add:hover{ background:var(--accent-700); }
+.btn-reload{ background:#111827; color:#e5e7eb; border:1px solid #232f3e; }
+
+.card{
+  background: color-mix(in oklab, var(--card) 95%, black);
+  border:1px solid var(--border); border-radius: var(--radius);
+  overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+.table{ width:100%; border-collapse:collapse; font-size:14px; }
+.table thead th{
+  text-align:left; padding:12px; color:var(--muted); background:#0f1720; font-weight:600;
+}
+.table tbody td{ padding:12px; border-top:1px solid #14202c; }
+.center{ text-align:center; }
+
+.badge{ padding:4px 8px; border-radius:999px; background:#0f172a; color:#cbd5e1; border:1px solid #1e293b; }
+
+.actions{ display:flex; gap:8px; justify-content:center; }
+.act{ padding:8px 10px; border-radius:10px; font-weight:600; border:1px solid transparent; cursor:pointer; }
+.act-refresh{ background:#083d2b; color:#a7f3d0; border-color:#14532d; }
+.act-refresh:hover{ background:#0a4a34; }
+.act-del{ background:#3b0d0d; color:#fecaca; border-color:#7f1d1d; }
+.act-del:hover{ background:#4a1010; }
+
+.alert{
+  margin: 10px 0 14px; padding: 10px 12px; border-radius:12px;
+  background:#2b1616; color:#ffb4b4; border:1px solid #3a2020; font-size:13px;
+}
+.empty{ padding:24px; color:#94a3b8; text-align:center; }

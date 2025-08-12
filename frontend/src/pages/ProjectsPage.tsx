@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../api/client";
 import { logout } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import "./styles/ProjectsPage.css";
 
 type Project = {
   id: number;
@@ -38,101 +39,92 @@ export default function ProjectsPage() {
 
   async function add() {
     if (!repoPath.trim()) return;
-    try { await api.projects.add(repoPath.trim()); setRepoPath(""); await load(); }
-    catch (e: any) { setErr(e?.message || "Add failed"); }
+    try {
+      await api.projects.add(repoPath.trim());
+      setRepoPath("");
+      await load();
+    } catch (e: any) {
+      setErr(e?.message || "Add failed");
+    }
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-5xl mx-auto p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900">Projects</h2>
-          <button
-            onClick={() => { logout(); nav("/login"); }}
-            className="rounded-lg bg-slate-200 px-3 py-1.5 text-sm hover:bg-slate-300"
-          >
+    <div className="wrap">
+      <div className="header">
+        <h2 className="h2">Projects</h2>
+        <div className="toolbar">
+          <button className="btn btn-logout" onClick={() => { logout(); nav("/login"); }}>
             Logout
           </button>
         </div>
+      </div>
 
-        {err && <div className="mb-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded p-3">{err}</div>}
+      {err && <div className="alert">{err}</div>}
 
-        <div className="flex gap-3 mb-4">
-          <input
-            className="flex-1 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="owner/name (e.g. facebook/react)"
-            value={repoPath}
-            onChange={(e) => setRepoPath(e.target.value)}
-          />
-          <button onClick={add} className="rounded-xl bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700">
-            Add
-          </button>
-          <button
-            onClick={load}
-            className="rounded-xl bg-slate-200 px-4 py-2 hover:bg-slate-300"
-            disabled={loading}
-          >
-            {loading ? "Loading…" : "Reload"}
-          </button>
-        </div>
+      <div className="row">
+        <input
+          className="input"
+          placeholder="owner/name (e.g. facebook/react)"
+          value={repoPath}
+          onChange={(e) => setRepoPath(e.target.value)}
+        />
+        <button className="btn btn-add" onClick={add}>Add</button>
+        <button className="btn btn-reload" onClick={load} disabled={loading}>
+          {loading ? "Loading…" : "Reload"}
+        </button>
+      </div>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
-          <table className="min-w-full text-sm">
-            <thead className="bg-slate-50 text-slate-600">
-              <tr>
-                <th className="text-left p-3">Owner</th>
-                <th className="text-left p-3">Name</th>
-                <th className="text-left p-3">URL</th>
-                <th className="p-3">⭐</th>
-                <th className="p-3">🍴</th>
-                <th className="p-3">🐞</th>
-                <th className="p-3">Created (UTC Unix)</th>
-                <th className="p-3">Actions</th>
+      <div className="card">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Name</th>
+              <th>URL</th>
+              <th className="center">⭐</th>
+              <th className="center">🍴</th>
+              <th className="center">🐞</th>
+              <th className="center">Created (UTC Unix)</th>
+              <th className="center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((p) => (
+              <tr key={p.id}>
+                <td>{p.owner}</td>
+                <td>{p.name}</td>
+                <td>
+                  <a href={p.url} target="_blank" rel="noreferrer" className="badge">
+                    {p.url}
+                  </a>
+                </td>
+                <td className="center">{p.stars}</td>
+                <td className="center">{p.forks}</td>
+                <td className="center">{p.openIssues}</td>
+                <td className="center">{p.repoCreatedAtUnix}</td>
+                <td className="center">
+                  <div className="actions">
+                    <button className="act act-refresh"
+                      onClick={async () => { await api.projects.refresh(p.id); await load(); }}>
+                      Refresh
+                    </button>
+                    <button className="act act-del"
+                      onClick={async () => { await api.projects.remove(p.id); await load(); }}>
+                      Delete
+                    </button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {items.map((p) => (
-                <tr key={p.id} className="border-t border-slate-100">
-                  <td className="p-3">{p.owner}</td>
-                  <td className="p-3">{p.name}</td>
-                  <td className="p-3">
-                    <a className="text-indigo-600 hover:underline" href={p.url} target="_blank" rel="noreferrer">
-                      {p.url}
-                    </a>
-                  </td>
-                  <td className="p-3 text-center">{p.stars}</td>
-                  <td className="p-3 text-center">{p.forks}</td>
-                  <td className="p-3 text-center">{p.openIssues}</td>
-                  <td className="p-3 text-center">{p.repoCreatedAtUnix}</td>
-                  <td className="p-3">
-                    <div className="flex gap-2 justify-center">
-                      <button
-                        onClick={async () => { await api.projects.refresh(p.id); await load(); }}
-                        className="rounded-lg bg-emerald-100 text-emerald-800 px-3 py-1.5 hover:bg-emerald-200"
-                      >
-                        Refresh
-                      </button>
-                      <button
-                        onClick={async () => { await api.projects.remove(p.id); await load(); }}
-                        className="rounded-lg bg-rose-100 text-rose-800 px-3 py-1.5 hover:bg-rose-200"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {items.length === 0 && (
-                <tr>
-                  <td colSpan={8} className="p-6 text-center text-slate-500">
-                    No projects yet. Add one above (e.g. <code>facebook/react</code>).
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
+            ))}
+            {items.length === 0 && (
+              <tr>
+                <td colSpan={8} className="empty">
+                  No projects yet. Add one above (e.g. <code>facebook/react</code>).
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
