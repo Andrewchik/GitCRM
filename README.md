@@ -1,13 +1,13 @@
 # GitCRM
 
-GitCRM — це full-stack вебзастосунок для управління клієнтами (CRM) з використанням **MongoDB**, **Node.js (NestJS/Express)** та **React**.  
+GitCRM — це full-stack вебзастосунок для додавання та керування репозиторіями Git (CRM) з використанням **MongoDB**, **Node.js (Express)** та **React(TS)**.  
 Проєкт розгортається через **Docker Compose** і включає веб-інтерфейс, REST API та веб-адмінку для бази даних.
 
 ---
 
 ## 📌 Стек технологій
-- **Frontend:** React (Create React App / Vite), REST API клієнт
-- **Backend:** Node.js (NestJS або Express), REST API, JWT авторизація
+- **Frontend:** React (Create React App), REST API клієнт
+- **Backend:** Node.js (Express), REST API, JWT авторизація
 - **Database:** MongoDB
 - **Admin DB:** mongo-express
 - **Containerization:** Docker & Docker Compose
@@ -18,7 +18,7 @@ GitCRM — це full-stack вебзастосунок для управлінн�
 
 ### 1. Клонування репозиторію
 ```bash
-git clone https://github.com/yourusername/gitcrm.git
+git clone https://github.com/Andrewchik/GitCRM
 cd gitcrm
 ```
 
