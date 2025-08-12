@@ -27,7 +27,6 @@ cd gitcrm
 ```bash
 cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
-cp .env.example .env
 ```
 Потім відредагуйте `.env` файли, вказавши:
 - URI підключення до MongoDB
